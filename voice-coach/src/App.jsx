@@ -5,15 +5,13 @@ import { callApi } from "./api";
 const FILLERS = /\b(um|uh|like|you know|basically|actually)\b/gi;
 
 export default function App() {
-  const [tab, setTab] = useState("coach"); // "coach" | "mock"
+  const [tab, setTab] = useState("coach");
   const [profile, setProfile] = useState(localStorage.getItem("profile") || "");
   const [role, setRole] = useState(localStorage.getItem("role") || "");
 
-  // coach tab
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
 
-  // mock tab
   const [mockQ, setMockQ] = useState("");
   const [myAnswer, setMyAnswer] = useState("");
   const [feedback, setFeedback] = useState("");
@@ -50,7 +48,11 @@ export default function App() {
 
   const getFeedback = () =>
     myAnswer &&
-    run(async () => setFeedback(await callApi({ mode: "feedback", text: `Question: ${mockQ}\nAnswer: ${myAnswer}` })));
+    run(async () =>
+      setFeedback(
+        await callApi({ mode: "feedback", text: `Question: ${mockQ}\nAnswer: ${myAnswer}` })
+      )
+    );
 
   const { start, stop, listening, interim } = useSpeech((t) => {
     if (tab === "coach") ask(t);
@@ -75,7 +77,7 @@ export default function App() {
         onChange={(e) => save("profile", setProfile)(e.target.value)}
       />
       <input
-        placeholder="Target role (for mock interview), e.g. Frontend Developer"
+        placeholder="Target role, e.g. Frontend Developer"
         value={role}
         onChange={(e) => save("role", setRole)(e.target.value)}
       />

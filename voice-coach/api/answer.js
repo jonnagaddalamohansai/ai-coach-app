@@ -1,4 +1,4 @@
-const MODEL = "gemini-3.8-flash";
+const MODEL = process.env.GEMINI_MODEL || "gemini-3.8-flash";
 
 const PROMPTS = {
   answer: (profile) => `You are a voice-friendly speaking coach. Write a sample answer to the
@@ -18,6 +18,10 @@ Keep it concise.`,
 };
 
 export default async function handler(req, res) {
+  // open /api/answer in the browser to check which model is deployed
+  if (req.method === "GET") {
+    return res.status(200).json({ model: MODEL, version: "final-1" });
+  }
   if (req.method !== "POST") {
     return res.status(405).json({ error: "POST only" });
   }

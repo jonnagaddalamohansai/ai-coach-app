@@ -6,7 +6,6 @@ export function useSpeech(onFinalText) {
   const [listening, setListening] = useState(false);
   const [interim, setInterim] = useState("");
 
-  // always keep the newest callback so the mic never uses stale data
   useEffect(() => {
     cbRef.current = onFinalText;
   }, [onFinalText]);
