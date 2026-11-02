@@ -1,4 +1,4 @@
-const MODEL = "gemini-2.5-flash";
+const MODEL = "gemini-3.8-flash";
 
 const PROMPTS = {
   answer: (profile) => `You are a voice-friendly speaking coach. Write a sample answer to the
